@@ -1,61 +1,35 @@
-package com.api.parkingspot.models;
+package com.api.parkingspot.dtos;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public class ParkingSpotDto {
 
-@Entity(name = "PARKING_SPOT")
-public class ParkingSpotModel implements Serializable {
-	private static long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
 	
-	@Column(nullable = false, unique = true, length = 10)
+	@NotBlank
 	private String parkingSpotNumber;
 	
-	@Column(nullable = false, unique = true, length = 7)
+	@NotBlank
+	@Size(max = 7)
 	private String licensePlateCar;
 	
-	@Column(nullable = false, length = 70)
+	@NotBlank
 	private String brandCar;
 	
-	@Column(nullable = false, length = 70)
+	@NotBlank
 	private String modelCar;
 	
-	@Column(nullable = false, length = 70)
+	@NotBlank
 	private String colorCar;
 	
-	@Column(nullable = false)
-	private LocalDateTime regristrationDate;
-	
-	@Column(nullable = false, length = 130)
+	@NotBlank
 	private String responsibleName;
 	
-	@Column(nullable = false, length = 30)
+	@NotBlank
 	private String apartment;
 	
-	@Column(nullable = false, length = 30)
+	@NotBlank
 	private String block;
-	
-	public ParkingSpotModel() {
-	
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
 
 	public String getParkingSpotNumber() {
 		return parkingSpotNumber;
@@ -95,14 +69,6 @@ public class ParkingSpotModel implements Serializable {
 
 	public void setColorCar(String colorCar) {
 		this.colorCar = colorCar;
-	}
-
-	public LocalDateTime getRegristrationDate() {
-		return regristrationDate;
-	}
-
-	public void setRegristrationDate(LocalDateTime regristrationDate) {
-		this.regristrationDate = regristrationDate;
 	}
 
 	public String getResponsibleName() {
