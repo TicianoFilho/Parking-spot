@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.parkingspot.models.ParkingSpotModel;
@@ -27,8 +29,8 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	}
 	
 	@Override
-	public List<ParkingSpotModel> findAll() {
-		return parkingSpotRepository.findAll();
+	public Page<ParkingSpotModel> findAll(Pageable pageable) {
+		return parkingSpotRepository.findAll(pageable);
 	}
 	
 	@Override

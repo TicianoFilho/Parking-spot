@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.api.parkingspot.models.ParkingSpotModel;
 
 public interface ParkingSpotService {
@@ -16,7 +19,7 @@ public interface ParkingSpotService {
 	
 	public boolean existsByApartmentAndBlock(String apartment, String block);
 
-	public List<ParkingSpotModel> findAll();
+	public Page<ParkingSpotModel> findAll(Pageable pageable);
 
 	public Optional<ParkingSpotModel> findOneById(UUID id);
 	
