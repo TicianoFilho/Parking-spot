@@ -35,6 +35,12 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	public Optional<ParkingSpotModel> findOneById(UUID id) {
 		return parkingSpotRepository.findById(id);
 	}
+	
+	@Override
+	public void delete(ParkingSpotModel parkingSpotModel) {
+		parkingSpotRepository.delete(parkingSpotModel);
+		
+	}
 
 	@Override
 	public boolean existsByLicensePlateCar(String licensePlateCar) {

@@ -19,5 +19,7 @@ public interface ParkingSpotService {
 	public List<ParkingSpotModel> findAll();
 
 	public Optional<ParkingSpotModel> findOneById(UUID id);
+	
+	public void delete(ParkingSpotModel parkingSpotModel);
 
 }

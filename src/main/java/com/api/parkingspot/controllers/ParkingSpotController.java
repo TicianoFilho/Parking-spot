@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,5 +72,17 @@ public class ParkingSpotController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(parkingSpotOptional.get());
 		
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Object> deleteParkingSpot(@PathVariable(name = "id") UUID id) {
+		
+		Optional<ParkingSpotModel> ParkingSpotOptional = parkingSpotService.findOneById(id);
+		if (!ParkingSpotOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found!");
+		}
+			
+		parkingSpotService.delete(ParkingSpotOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).body(String.format("Parking spot with id=%s deleted successfuly!", ParkingSpotOptional.get().getId()));
 	}
 }
