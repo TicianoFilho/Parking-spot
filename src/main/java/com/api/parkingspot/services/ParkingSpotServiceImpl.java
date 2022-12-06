@@ -1,5 +1,7 @@
 package com.api.parkingspot.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +23,11 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	public ParkingSpotModel save(ParkingSpotModel parkingSportModel) {
 		return parkingSpotRepository.save(parkingSportModel);
 	}
+	
+	@Override
+	public List<ParkingSpotModel> findAll() {
+		return parkingSpotRepository.findAll();
+	}
 
 	@Override
 	public boolean existsByLicensePlateCar(String licensePlateCar) {
@@ -36,6 +43,7 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	public boolean existsByApartmentAndBlock(String apartment, String block) {
 		return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
 	}
+
 	
 	
 	
