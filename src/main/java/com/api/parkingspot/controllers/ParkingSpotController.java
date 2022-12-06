@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,7 +63,7 @@ public class ParkingSpotController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneParkingSpotById(@PathVariable(name = "id") UUID id) {
+	public ResponseEntity<Object> getOneParkingSpotById(@PathVariable(value = "id") UUID id) {
 		
 		Optional<ParkingSpotModel> parkingSpotOptional = parkingSpotService.findOneById(id);
 		
@@ -75,7 +76,7 @@ public class ParkingSpotController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteParkingSpot(@PathVariable(name = "id") UUID id) {
+	public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") UUID id) {
 		
 		Optional<ParkingSpotModel> ParkingSpotOptional = parkingSpotService.findOneById(id);
 		if (!ParkingSpotOptional.isPresent()) {
@@ -83,6 +84,25 @@ public class ParkingSpotController {
 		}
 			
 		parkingSpotService.delete(ParkingSpotOptional.get());
-		return ResponseEntity.status(HttpStatus.OK).body(String.format("Parking spot with id=%s deleted successfuly!", ParkingSpotOptional.get().getId()));
+		return ResponseEntity.status(HttpStatus.OK).body(String.format(
+				"Parking spot with id=%s deleted successfully!", ParkingSpotOptional.get().getId()));
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateParkingSpot(@PathVariable(value = "id") UUID id, 
+			@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
+		
+		Optional<ParkingSpotModel> ParkingSpotOptional = parkingSpotService.findOneById(id);
+		if (!ParkingSpotOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found!");
+		}
+		
+		ParkingSpotModel parkingSpotModel = new ParkingSpotModel();
+		BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
+		parkingSpotModel.setId(ParkingSpotOptional.get().getId());
+		parkingSpotModel.setRegristrationDate(ParkingSpotOptional.get().getRegristrationDate());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
+	}
+	
 }
