@@ -1,6 +1,8 @@
 package com.api.parkingspot.services;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -27,6 +29,11 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	@Override
 	public List<ParkingSpotModel> findAll() {
 		return parkingSpotRepository.findAll();
+	}
+	
+	@Override
+	public Optional<ParkingSpotModel> findOneById(UUID id) {
+		return parkingSpotRepository.findById(id);
 	}
 
 	@Override
