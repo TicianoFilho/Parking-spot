@@ -13,7 +13,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			httpBasic()
 			.and()
 			.authorizeHttpRequests()
-			.anyRequest().permitAll();
+			.anyRequest().authenticated();
 	}
 
 }
