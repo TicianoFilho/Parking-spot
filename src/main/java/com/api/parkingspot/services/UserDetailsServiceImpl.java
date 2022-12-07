@@ -1,5 +1,6 @@
 package com.api.parkingspot.services;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		UserModel usermodel = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with username" + username));
 	
-		return usermodel;
+		return new User(usermodel.getUsername(), usermodel.getPassword(), true, true, true, true, usermodel.getAuthorities());
 	}
 	
 	public UserModel createUser(UserModel user) {
