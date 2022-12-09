@@ -1,5 +1,7 @@
 package com.api.parkingspot.services;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +12,7 @@ import com.api.parkingspot.models.UserModel;
 import com.api.parkingspot.repositories.UserRepository;
 
 @Service
+@Transactional // Allows to read user roles from tb_users_roles table as eager mode
 public class UserDetailsServiceImpl implements UserDetailsService{
 
 	private final UserRepository userRepository;
