@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.api.parkingspot.services.UserDetailsServiceImpl;
 
-@Configuration
+//@Configuration  // Old way of implementing Spring Security.
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final UserDetailsServiceImpl userDetailsService;
